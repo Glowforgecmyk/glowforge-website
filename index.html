@@ -1,11 +1,658 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Glowforge Interior Design</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Glowforge Interior Design – modern gypsum, lighting and interior solutions."
+  />
+  <style>
+    :root {
+      --gold: #d2af50;
+      --dark: #0c0c0f;
+      --light: #f6f3ea;
+      --text: #222222;
+      --muted: #777777;
+      --card: #ffffff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: var(--light);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.7rem 1.6rem;
+      border-radius: 999px;
+      border: 1px solid var(--gold);
+      background: var(--gold);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn.outline {
+      background: transparent;
+      color: var(--gold);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    header {
+      background: var(--dark);
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.7rem 0;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    /* Replace this with <img src="glowforge-logo.jpg" ...> later if you upload a logo file */
+    .logo-image {
+      height: 40px;
+      width: 40px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(210, 175, 80, 0.6);
+      background: radial-gradient(circle at top, #444, #111);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: var(--gold);
+      font-size: 1.1rem;
+    }
+
+    .logo-text-main {
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .logo-text-sub {
+      font-size: 0.7rem;
+      color: #aaa;
+      text-transform: uppercase;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.2rem;
+      font-size: 0.9rem;
+    }
+
+    nav a {
+      color: #f5f5f5;
+      opacity: 0.9;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    .nav-cta { display: none; }
+
+    .hero {
+      background: radial-gradient(circle at top left, #3b2a16, #050508);
+      color: #fff;
+      padding: 3rem 0 3.5rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr);
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(210, 175, 80, 0.5);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      font-size: 2.4rem;
+      line-height: 1.2;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero h1 span { color: var(--gold); }
+
+    .hero p {
+      max-width: 30rem;
+      font-size: 0.95rem;
+      color: #ddd;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .hero-note {
+      font-size: 0.8rem;
+      color: #aaaaaa;
+      margin-top: 0.4rem;
+    }
+
+    .hero-card {
+      background: rgba(10, 10, 12, 0.98);
+      border-radius: 1.2rem;
+      padding: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.65);
+    }
+
+    .hero-card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-list {
+      list-style: none;
+      font-size: 0.85rem;
+      color: #e4e4e4;
+    }
+
+    .hero-list li {
+      padding: 0.25rem 0;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-list span.label { color: #aaaaaa; }
+    .hero-list span.value { color: var(--gold); }
+
+    section { padding: 3rem 0; }
+
+    section h2 {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    section p.section-intro {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 32rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 1rem;
+      padding: 1.1rem 1.2rem 1.2rem;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+      border: 1px solid #e3dcc8;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .chip {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: #f3ead5;
+      color: #6b5415;
+      margin-bottom: 0.4rem;
+    }
+
+    .card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .card ul {
+      list-style: none;
+      font-size: 0.8rem;
+      color: #555;
+    }
+
+    .card ul li::before {
+      content: "• ";
+      color: var(--gold);
+    }
+
+    .strip {
+      background: #111;
+      color: #eee;
+      padding: 1.1rem 0;
+    }
+
+    .strip-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.9rem;
+    }
+
+    .strip span { color: var(--gold); font-weight: 600; }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.2rem;
+    }
+
+    .pricing-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .mini-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+    }
+
+    .mini-table th,
+    .mini-table td {
+      padding: 0.35rem 0.45rem;
+      text-align: right;
+      border-bottom: 1px solid #eee4d2;
+    }
+
+    .mini-table th:first-child,
+    .mini-table td:first-child {
+      text-align: left;
+    }
+
+    .mini-table thead { background: #f9f3e0; }
+
+    .mini-table tfoot td {
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.3fr);
+      gap: 1.5rem;
+    }
+
+    .contact-list {
+      list-style: none;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .contact-list li { margin-bottom: 0.4rem; }
+
+    .contact-list span.label {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    form {
+      background: var(--card);
+      border-radius: 1rem;
+      padding: 1.1rem;
+      border: 1px solid #e7e0cf;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
+    }
+
+    .field { margin-bottom: 0.7rem; }
+
+    .field label {
+      display: block;
+      font-size: 0.8rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      padding: 0.45rem 0.6rem;
+      border-radius: 0.5rem;
+      border: 1px solid #d6c8ab;
+      font-size: 0.85rem;
+      font-family: inherit;
+      resize: vertical;
+    }
+
+    .field textarea { min-height: 80px; }
+
+    footer {
+      background: #111;
+      color: #aaa;
+      padding: 1rem 0;
+      font-size: 0.75rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    footer span { color: var(--gold); }
+
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-card { order: -1; margin-bottom: 1.2rem; }
+      .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .pricing-grid,
+      .contact-grid { grid-template-columns: 1fr; }
+      nav ul { display: none; }
+      .nav-cta { display: block; }
+    }
+
+    @media (max-width: 600px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .hero { padding-top: 2.2rem; }
+    }
+  </style>
 </head>
 <body>
-  <h1>Glowforge Interior Design</h1>
-  <p>This is a test website upload. If you can see this, hosting works.</p>
+  <header>
+    <div class="container nav">
+      <div class="logo-wrap">
+        <!-- Replace this with your actual logo later:
+             <img src="glowforge-logo.jpg" alt="Glowforge Interior Design Logo" class="logo-image" />
+        -->
+        <div class="logo-image">GF</div>
+        <div>
+          <div class="logo-text-main">GLOWFORGE</div>
+          <div class="logo-text-sub">INTERIOR DESIGN</div>
+        </div>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#pricing">Quotations</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <a href="#contact" class="btn nav-cta">Get a Quote</a>
+    </div>
+  </header>
+
+  <section class="hero" id="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="hero-tag">
+          <span>Glowforge</span>
+          <span>Interior Design</span>
+        </div>
+        <h1>
+          Bright ideas for every<br />
+          <span>ceiling, wall & space.</span>
+        </h1>
+        <p>
+          Glowforge Interior Design brings together gypsum ceilings, lighting and
+          finishes to create warm, modern interiors for shops, homes and offices.
+        </p>
+        <div class="hero-actions">
+          <a href="#pricing" class="btn">View sample quotations</a>
+          <a href="#contact" class="btn outline">Request a site visit</a>
+        </div>
+        <p class="hero-note">
+          Phone / WhatsApp: 0729 730 388 / 0114 514 003
+        </p>
+      </div>
+
+      <div class="hero-card">
+        <h3>Why clients choose Glowforge</h3>
+        <ul class="hero-list">
+          <li>
+            <span class="label">Speciality</span>
+            <span class="value">Gypsum & lighting</span>
+          </li>
+          <li>
+            <span class="label">Typical shop size</span>
+            <span class="value">4.5m × 4.5m</span>
+          </li>
+          <li>
+            <span class="label">Project duration</span>
+            <span class="value">3–7 days</span>
+          </li>
+          <li>
+            <span class="label">Coverage</span>
+            <span class="value">Update your city here</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <h2>What Glowforge Offers</h2>
+      <p class="section-intro">
+        We combine creative design with careful installation to give you a clean,
+        modern look that matches your brand and lifestyle.
+      </p>
+
+      <div class="services-grid">
+        <div class="card">
+          <div class="chip">Ceilings</div>
+          <h3>Gypsum & Feature Ceilings</h3>
+          <p>
+            Custom gypsum designs with levels, bulkheads and hidden lighting to
+            transform any interior.
+          </p>
+          <ul>
+            <li>Shops, showrooms & salons</li>
+            <li>Living rooms & bedrooms</li>
+            <li>Cove & drop ceilings</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="chip">Lighting</div>
+          <h3>LED & Ambient Lighting</h3>
+          <p>
+            Layered lighting plans using downlights, strip lights and decorative
+            fixtures for a warm glow.
+          </p>
+          <ul>
+            <li>LED cove strips</li>
+            <li>Recessed downlights</li>
+            <li>Accent & feature lighting</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="chip">Finishes</div>
+          <h3>Walls, Tiles & Paint</h3>
+          <p>
+            Smooth wall finishing, tiling and painting to complete your interior
+            from floor to ceiling.
+          </p>
+          <ul>
+            <li>Tile installation</li>
+            <li>Feature walls</li>
+            <li>Interior repainting</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="strip">
+    <div class="container strip-inner">
+      <div>
+        <strong>Need a quotation?</strong> Share your room size and a photo, and we
+        send back a detailed quote.
+      </div>
+      <div>
+        Phone / WhatsApp: <span>0729 730 388 / 0114 514 003</span> • Email:
+        <span>glowforgeinterior@gmail.com</span>
+      </div>
+    </div>
+  </div>
+
+  <section id="pricing">
+    <div class="container">
+      <h2>Sample Quotations</h2>
+      <p class="section-intro">
+        These are example breakdowns based on common Glowforge projects. Final
+        figures depend on location, materials and design.
+      </p>
+
+      <div class="pricing-grid">
+        <div class="card">
+          <h3>Quotation No. 1 – Gypsum Ceiling</h3>
+          <p class="pricing-note">Sample based on 68 m² ceiling area.</p>
+          <table class="mini-table">
+            <thead>
+              <tr>
+                <th>Item</th><th>Unit</th><th>Qty</th><th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Gypsum Board</td><td>750</td><td>25</td><td>18,750</td></tr>
+              <tr><td>Channels + Studs</td><td>1,700</td><td>17</td><td>28,900</td></tr>
+              <tr><td>Gypsum Screws</td><td>700</td><td>2</td><td>1,400</td></tr>
+              <tr><td>Fibre Tape & Filler</td><td>—</td><td>—</td><td>3,200</td></tr>
+              <tr><td>Accessories</td><td>—</td><td>—</td><td>1,800</td></tr>
+              <tr><td>Labour (Gypsum)</td><td>550/m²</td><td>68 m²</td><td>37,400</td></tr>
+            </tbody>
+            <tfoot>
+              <tr><td colspan="3">Subtotal</td><td>91,200</td></tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3>Quotation No. 2 – Electrical & Lighting</h3>
+          <p class="pricing-note">
+            Example wiring and lighting for a feature ceiling.
+          </p>
+          <table class="mini-table">
+            <thead>
+              <tr>
+                <th>Item</th><th>Unit</th><th>Qty</th><th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Down Lights</td><td>500</td><td>30</td><td>15,000</td></tr>
+              <tr><td>Flex Wire 1.5mm</td><td>65</td><td>60m</td><td>3,900</td></tr>
+              <tr><td>Triple Switch & Connectors</td><td>—</td><td>—</td><td>1,850</td></tr>
+              <tr><td>Cove Lights</td><td>250</td><td>30m</td><td>7,500</td></tr>
+              <tr><td>Insulation & Accessories</td><td>—</td><td>—</td><td>100</td></tr>
+              <tr><td>Labour (Electrical)</td><td>8,500</td><td>1</td><td>8,500</td></tr>
+            </tbody>
+            <tfoot>
+              <tr><td colspan="3">Subtotal</td><td>36,850</td></tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h2>Contact Glowforge</h2>
+      <p class="section-intro">
+        Tell us about your space and we’ll suggest a design direction and budget
+        range. You can also attach photos when you send this via WhatsApp or email.
+      </p>
+
+      <div class="contact-grid">
+        <div>
+          <ul class="contact-list">
+            <li><span class="label">Phone / WhatsApp:</span> 0729 730 388 / 0114 514 003</li>
+            <li><span class="label">Email:</span> glowforgeinterior@gmail.com</li>
+            <li><span class="label">Location:</span> Vision Plaza, Mombasa Road, Nairobi, 00100, Kenya</li>
+          </ul>
+          <p class="pricing-note" style="margin-top:0.8rem;">
+            You can copy this form text and send it through WhatsApp or email. Later
+            you can connect it to a real contact form service.
+          </p>
+        </div>
+
+        <form>
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" type="text" placeholder="Your full name" />
+          </div>
+          <div class="field">
+            <label for="phone">Phone / WhatsApp</label>
+            <input id="phone" type="text" placeholder="Your contact number" />
+          </div>
+          <div class="field">
+            <label for="message">Project Details</label>
+            <textarea
+              id="message"
+              placeholder="Room/shop size, ceiling idea, lights, tiles, budget range…"
+            ></textarea>
+          </div>
+          <button type="button" class="btn">
+            Send (static demo – connect later)
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      © <span>Glowforge Interior Design</span> – Gypsum • Lighting • Interior finishes
+    </div>
+  </footer>
 </body>
 </html>
