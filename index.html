@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta
     name="description"
-    content="Glowforge Interior Design – modern gypsum, lighting and interior solutions."
+    content="Glowforge Interior Design – gypsum ceilings, hotel and home interiors, electrical wiring, lighting, CCTV and smart security systems."
   />
   <style>
     :root {
@@ -82,20 +82,14 @@
       gap: 0.6rem;
     }
 
-    /* Replace this with <img src="glowforge-logo.jpg" ...> later if you upload a logo file */
     .logo-image {
       height: 40px;
       width: 40px;
       border-radius: 12px;
       overflow: hidden;
       border: 1px solid rgba(210, 175, 80, 0.6);
+      object-fit: cover;
       background: radial-gradient(circle at top, #444, #111);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      color: var(--gold);
-      font-size: 1.1rem;
     }
 
     .logo-text-main {
@@ -205,8 +199,6 @@
 
     .hero-list li {
       padding: 0.25rem 0;
-      display: flex;
-      justify-content: space-between;
       border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
     }
 
@@ -290,41 +282,29 @@
 
     .strip span { color: var(--gold); font-weight: 600; }
 
-    .pricing-grid {
+    .two-col-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1.2rem;
     }
 
-    .pricing-note {
-      font-size: 0.8rem;
-      color: var(--muted);
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
     }
 
-    .mini-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.8rem;
-      margin-top: 0.5rem;
-    }
-
-    .mini-table th,
-    .mini-table td {
-      padding: 0.35rem 0.45rem;
-      text-align: right;
-      border-bottom: 1px solid #eee4d2;
-    }
-
-    .mini-table th:first-child,
-    .mini-table td:first-child {
-      text-align: left;
-    }
-
-    .mini-table thead { background: #f9f3e0; }
-
-    .mini-table tfoot td {
-      font-weight: 700;
-      color: var(--gold);
+    .gallery-item {
+      border-radius: 1rem;
+      overflow: hidden;
+      background: #ddd;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: #555;
+      border: 1px dashed #c7b890;
     }
 
     .contact-grid {
@@ -363,7 +343,8 @@
     }
 
     .field input,
-    .field textarea {
+    .field textarea,
+    .field select {
       width: 100%;
       padding: 0.45rem 0.6rem;
       border-radius: 0.5rem;
@@ -374,6 +355,20 @@
     }
 
     .field textarea { min-height: 80px; }
+
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.3rem 0.8rem;
+      font-size: 0.8rem;
+    }
+
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-weight: 400;
+    }
 
     footer {
       background: #111;
@@ -389,15 +384,17 @@
     @media (max-width: 900px) {
       .hero-grid { grid-template-columns: 1fr; }
       .hero-card { order: -1; margin-bottom: 1.2rem; }
-      .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .pricing-grid,
+      .services-grid,
+      .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .two-col-grid,
       .contact-grid { grid-template-columns: 1fr; }
       nav ul { display: none; }
       .nav-cta { display: block; }
     }
 
     @media (max-width: 600px) {
-      .services-grid { grid-template-columns: 1fr; }
+      .services-grid,
+      .gallery-grid { grid-template-columns: 1fr; }
       .hero { padding-top: 2.2rem; }
     }
   </style>
@@ -406,10 +403,8 @@
   <header>
     <div class="container nav">
       <div class="logo-wrap">
-        <!-- Replace this with your actual logo later:
-             <img src="glowforge-logo.jpg" alt="Glowforge Interior Design Logo" class="logo-image" />
-        -->
-        <div class="logo-image">GF</div>
+        <!-- Make sure you have uploaded glowforge-logo.jpg to this repo -->
+        <img src="glowforge-logo.jpg" alt="Glowforge Interior Design Logo" class="logo-image" />
         <div>
           <div class="logo-text-main">GLOWFORGE</div>
           <div class="logo-text-sub">INTERIOR DESIGN</div>
@@ -419,8 +414,10 @@
       <nav>
         <ul>
           <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>
-          <li><a href="#pricing">Quotations</a></li>
+          <li><a href="#quotations">Quotations</a></li>
+          <li><a href="#gallery">Gallery</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -438,18 +435,25 @@
         </div>
         <h1>
           Bright ideas for every<br />
-          <span>ceiling, wall & space.</span>
+          <span>hotel, home & shop.</span>
         </h1>
         <p>
-          Glowforge Interior Design brings together gypsum ceilings, lighting and
-          finishes to create warm, modern interiors for shops, homes and offices.
+          We design and install modern gypsum ceilings, lighting, electrical wiring,
+          CCTV and smart security systems, plus full painting and interior finishes
+          for homes, hotels, offices and retail spaces.
         </p>
         <div class="hero-actions">
-          <a href="#pricing" class="btn">View sample quotations</a>
-          <a href="#contact" class="btn outline">Request a site visit</a>
+          <a href="#services" class="btn">See our services</a>
+          <a href="#quotations" class="btn outline">Request a quotation</a>
         </div>
         <p class="hero-note">
-          Phone / WhatsApp: 0729 730 388 / 0114 514 003
+          Phone / WhatsApp:
+          <a href="tel:+254729730388" style="color:#f5f5f5;">0729 730 388</a> /
+          <a href="tel:+254114514003" style="color:#f5f5f5;">0114 514 003</a><br />
+          Email:
+          <a href="mailto:glowforgeinterior@gmail.com" style="color:#f5f5f5;">
+            glowforgeinterior@gmail.com
+          </a>
         </p>
       </div>
 
@@ -457,74 +461,91 @@
         <h3>Why clients choose Glowforge</h3>
         <ul class="hero-list">
           <li>
+            <span class="label">Spaces</span>
+            <span class="value">Homes, hotels, shops & offices</span>
+          </li>
+          <li>
             <span class="label">Speciality</span>
-            <span class="value">Gypsum & lighting</span>
+            <span class="value">Gypsum, lighting & security</span>
           </li>
           <li>
-            <span class="label">Typical shop size</span>
-            <span class="value">4.5m × 4.5m</span>
+            <span class="label">Services</span>
+            <span class="value">Design, materials & labour</span>
           </li>
           <li>
-            <span class="label">Project duration</span>
-            <span class="value">3–7 days</span>
-          </li>
-          <li>
-            <span class="label">Coverage</span>
-            <span class="value">Update your city here</span>
+            <span class="label">Visuals</span>
+            <span class="value">AI design previews on request</span>
           </li>
         </ul>
       </div>
     </div>
   </section>
 
+  <section id="about">
+    <div class="container">
+      <h2>About Glowforge Interior Design</h2>
+      <p class="section-intro">
+        Glowforge is a partnership focused on clean, modern interior work – especially
+        for gypsum ceilings, lighting and security. We combine practical wiring and
+        installation with creative design so your space looks good and works well.
+      </p>
+      <p class="section-intro">
+        We work with shop owners, homeowners, hotel managers and office spaces to
+        deliver complete solutions: ceilings, lights, CCTV, smart security, painting
+        and finishes. For bigger projects, we can prepare AI picture designs to help
+        you see how the ceiling, lighting and colours will look before we start.
+      </p>
+    </div>
+  </section>
+
   <section id="services">
     <div class="container">
-      <h2>What Glowforge Offers</h2>
+      <h2>Our Main Services</h2>
       <p class="section-intro">
-        We combine creative design with careful installation to give you a clean,
-        modern look that matches your brand and lifestyle.
+        From a single living room to a full hotel floor, Glowforge provides a complete
+        interior package: design, materials, installation and finishing.
       </p>
 
       <div class="services-grid">
         <div class="card">
-          <div class="chip">Ceilings</div>
-          <h3>Gypsum & Feature Ceilings</h3>
+          <div class="chip">Gypsum & Ceilings</div>
+          <h3>Hotel & Home Ceiling Design</h3>
           <p>
-            Custom gypsum designs with levels, bulkheads and hidden lighting to
-            transform any interior.
+            Custom gypsum ceilings with levels, bulkheads and hidden lighting to
+            transform any space.
           </p>
           <ul>
-            <li>Shops, showrooms & salons</li>
-            <li>Living rooms & bedrooms</li>
-            <li>Cove & drop ceilings</li>
+            <li>Gypsum ceilings for homes & apartments</li>
+            <li>Hotel rooms, lobbies & corridors</li>
+            <li>Shops, salons and office ceilings</li>
           </ul>
         </div>
 
         <div class="card">
-          <div class="chip">Lighting</div>
-          <h3>LED & Ambient Lighting</h3>
+          <div class="chip">Electrical & Security</div>
+          <h3>Wiring, Lighting & Smart Security</h3>
           <p>
-            Layered lighting plans using downlights, strip lights and decorative
-            fixtures for a warm glow.
+            Safe, neat electrical installations with modern lighting and smart
+            protection for your property.
           </p>
           <ul>
-            <li>LED cove strips</li>
-            <li>Recessed downlights</li>
-            <li>Accent & feature lighting</li>
+            <li>Electrical wiring & power points</li>
+            <li>LED downlights & cove strip lighting</li>
+            <li>CCTV installation & home smart security systems</li>
           </ul>
         </div>
 
         <div class="card">
-          <div class="chip">Finishes</div>
-          <h3>Walls, Tiles & Paint</h3>
+          <div class="chip">Finishes & AI Designs</div>
+          <h3>Painting, Tiles & Visuals</h3>
           <p>
-            Smooth wall finishing, tiling and painting to complete your interior
-            from floor to ceiling.
+            Clean finishing to match your style, plus AI-generated design previews to
+            help you see the idea before work starts.
           </p>
           <ul>
-            <li>Tile installation</li>
-            <li>Feature walls</li>
-            <li>Interior repainting</li>
+            <li>Interior wall preparation & painting</li>
+            <li>Tile installation and skirting</li>
+            <li>AI picture designs & mood boards</li>
           </ul>
         </div>
       </div>
@@ -534,72 +555,129 @@
   <div class="strip">
     <div class="container strip-inner">
       <div>
-        <strong>Need a quotation?</strong> Share your room size and a photo, and we
-        send back a detailed quote.
+        <strong>Need a quotation?</strong>
+        Use the quotation section below to list what you want. Send it to our email
+        or WhatsApp and we’ll return a full breakdown of labour and materials.
       </div>
       <div>
-        Phone / WhatsApp: <span>0729 730 388 / 0114 514 003</span> • Email:
+        Phone / WhatsApp:
+        <span>0729 730 388 / 0114 514 003</span> • Email:
         <span>glowforgeinterior@gmail.com</span>
       </div>
     </div>
   </div>
 
-  <section id="pricing">
+  <section id="quotations">
     <div class="container">
-      <h2>Sample Quotations</h2>
+      <h2>Request a Custom Quotation</h2>
       <p class="section-intro">
-        These are example breakdowns based on common Glowforge projects. Final
-        figures depend on location, materials and design.
+        We don’t show fixed prices on this website because every project is different.
+        Instead, we let clients describe what they want. You send us your “quotation
+        idea”, and we send back a complete quotation with labour and materials
+        separated.
       </p>
 
-      <div class="pricing-grid">
+      <div class="two-col-grid">
         <div class="card">
-          <h3>Quotation No. 1 – Gypsum Ceiling</h3>
-          <p class="pricing-note">Sample based on 68 m² ceiling area.</p>
-          <table class="mini-table">
-            <thead>
-              <tr>
-                <th>Item</th><th>Unit</th><th>Qty</th><th>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>Gypsum Board</td><td>750</td><td>25</td><td>18,750</td></tr>
-              <tr><td>Channels + Studs</td><td>1,700</td><td>17</td><td>28,900</td></tr>
-              <tr><td>Gypsum Screws</td><td>700</td><td>2</td><td>1,400</td></tr>
-              <tr><td>Fibre Tape & Filler</td><td>—</td><td>—</td><td>3,200</td></tr>
-              <tr><td>Accessories</td><td>—</td><td>—</td><td>1,800</td></tr>
-              <tr><td>Labour (Gypsum)</td><td>550/m²</td><td>68 m²</td><td>37,400</td></tr>
-            </tbody>
-            <tfoot>
-              <tr><td colspan="3">Subtotal</td><td>91,200</td></tr>
-            </tfoot>
-          </table>
+          <div class="chip">How it works</div>
+          <h3>Simple 3–step quotation process</h3>
+          <ul>
+            <li>
+              <strong>Step 1:</strong> Fill the quotation request form on this page:
+              tell us your space size, type (home, shop, hotel), and what you want
+              (ceiling, lights, CCTV, painting, etc.).
+            </li>
+            <li>
+              <strong>Step 2:</strong> Send the details to
+              <strong>glowforgeinterior@gmail.com</strong> or WhatsApp, including
+              photos if possible.
+            </li>
+            <li>
+              <strong>Step 3:</strong> We calculate and send back a clean quotation:
+              one part for materials, one part for labour, with a total at the end.
+            </li>
+          </ul>
+          <p class="section-intro" style="margin-top:0.5rem;">
+            If you already have your own item list (for example from another shop),
+            you can email it to us and we will price only the labour or full project
+            as you prefer.
+          </p>
         </div>
 
         <div class="card">
-          <h3>Quotation No. 2 – Electrical & Lighting</h3>
-          <p class="pricing-note">
-            Example wiring and lighting for a feature ceiling.
-          </p>
-          <table class="mini-table">
-            <thead>
-              <tr>
-                <th>Item</th><th>Unit</th><th>Qty</th><th>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>Down Lights</td><td>500</td><td>30</td><td>15,000</td></tr>
-              <tr><td>Flex Wire 1.5mm</td><td>65</td><td>60m</td><td>3,900</td></tr>
-              <tr><td>Triple Switch & Connectors</td><td>—</td><td>—</td><td>1,850</td></tr>
-              <tr><td>Cove Lights</td><td>250</td><td>30m</td><td>7,500</td></tr>
-              <tr><td>Insulation & Accessories</td><td>—</td><td>—</td><td>100</td></tr>
-              <tr><td>Labour (Electrical)</td><td>8,500</td><td>1</td><td>8,500</td></tr>
-            </tbody>
-            <tfoot>
-              <tr><td colspan="3">Subtotal</td><td>36,850</td></tr>
-            </tfoot>
-          </table>
+          <div class="chip">Quotation Request Form</div>
+          <h3>Fill this, then send to our email</h3>
+          <form>
+            <div class="field">
+              <label for="q-name">Your name</label>
+              <input id="q-name" type="text" placeholder="Your full name" />
+            </div>
+            <div class="field">
+              <label for="q-phone">Phone / WhatsApp</label>
+              <input id="q-phone" type="text" placeholder="Your contact number" />
+            </div>
+            <div class="field">
+              <label for="q-space-type">Space type</label>
+              <select id="q-space-type">
+                <option>Shop / Retail</option>
+                <option>Home / Apartment</option>
+                <option>Hotel / Guest House</option>
+                <option>Office / Commercial</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="q-size">Approximate size</label>
+              <input
+                id="q-size"
+                type="text"
+                placeholder="Example: 4.5m x 4.5m, or 68 m² ceiling"
+              />
+            </div>
+            <div class="field">
+              <label>What services do you need?</label>
+              <div class="checkbox-group">
+                <label><input type="checkbox" /> Gypsum ceiling</label>
+                <label><input type="checkbox" /> Electrical wiring</label>
+                <label><input type="checkbox" /> Lighting & downlights</label>
+                <label><input type="checkbox" /> CCTV & security</label>
+                <label><input type="checkbox" /> Painting</label>
+                <label><input type="checkbox" /> Tiles / flooring</label>
+              </div>
+            </div>
+            <div class="field">
+              <label for="q-details">Extra details</label>
+              <textarea
+                id="q-details"
+                placeholder="Example: I want a modern gypsum ceiling with cove lights and downlights, CCTV at the entrance and cashier, and full repainting."
+              ></textarea>
+            </div>
+            <button type="button" class="btn">
+              This is a guide – copy these details and send to:
+              glowforgeinterior@gmail.com
+            </button>
+          </form>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="container">
+      <h2>Gallery & Design Ideas</h2>
+      <p class="section-intro">
+        Here you can showcase real projects and AI design ideas – hotel lobbies,
+        shops, living rooms and offices with gypsum ceilings, lighting and security
+        layouts. For now these are placeholders; later you can add your own photos.
+      </p>
+
+      <div class="gallery-grid">
+        <div class="gallery-item">AI hotel ceiling design</div>
+        <div class="gallery-item">Modern shop with gypsum & lights</div>
+        <div class="gallery-item">Living room with cove lighting</div>
+        <div class="gallery-item">Office ceiling & lighting concept</div>
+        <div class="gallery-item">CCTV & smart security layout</div>
+        <div class="gallery-item">Feature wall & painting idea</div>
       </div>
     </div>
   </section>
@@ -608,21 +686,40 @@
     <div class="container">
       <h2>Contact Glowforge</h2>
       <p class="section-intro">
-        Tell us about your space and we’ll suggest a design direction and budget
-        range. You can also attach photos when you send this via WhatsApp or email.
+        Tell us about your shop, home, hotel or office and we’ll suggest a design
+        direction and budget range. You can also attach photos when you send us an
+        email or WhatsApp message.
       </p>
 
       <div class="contact-grid">
         <div>
           <ul class="contact-list">
-            <li><span class="label">Phone / WhatsApp:</span> 0729 730 388 / 0114 514 003</li>
-            <li><span class="label">Email:</span> glowforgeinterior@gmail.com</li>
-            <li><span class="label">Location:</span> Vision Plaza, Mombasa Road, Nairobi, 00100, Kenya</li>
+            <li>
+              <span class="label">Phone / WhatsApp:</span>
+              <a href="tel:+254729730388">0729 730 388</a> /
+              <a href="tel:+254114514003">0114 514 003</a>
+            </li>
+            <li>
+              <span class="label">Email:</span>
+              <a href="mailto:glowforgeinterior@gmail.com">
+                glowforgeinterior@gmail.com
+              </a>
+            </li>
+            <li>
+              <span class="label">Location:</span>
+              Vision Plaza, Mombasa Road, Nairobi, 00100, Kenya
+            </li>
           </ul>
-          <p class="pricing-note" style="margin-top:0.8rem;">
-            You can copy this form text and send it through WhatsApp or email. Later
-            you can connect it to a real contact form service.
+
+          <p class="section-intro" style="margin-top:0.8rem;">
+            You can use the quotation request form above as a guide. Copy the
+            information and send it through WhatsApp or email so we can prepare your
+            full materials and labour quotation.
           </p>
+
+          <a href="mailto:glowforgeinterior@gmail.com" class="btn">
+            Email Glowforge Interior
+          </a>
         </div>
 
         <form>
@@ -638,11 +735,11 @@
             <label for="message">Project Details</label>
             <textarea
               id="message"
-              placeholder="Room/shop size, ceiling idea, lights, tiles, budget range…"
+              placeholder="Example: 4.5m x 4.5m shop, gypsum ceiling with cove lights, downlights, CCTV and full painting."
             ></textarea>
           </div>
           <button type="button" class="btn">
-            Send (static demo – connect later)
+            Example form only – send details by WhatsApp or email
           </button>
         </form>
       </div>
@@ -651,7 +748,7 @@
 
   <footer>
     <div class="container">
-      © <span>Glowforge Interior Design</span> – Gypsum • Lighting • Interior finishes
+      © <span>Glowforge Interior Design</span> – Gypsum • Lighting • CCTV • Smart Security • Painting
     </div>
   </footer>
 </body>
